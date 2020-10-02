@@ -17,3 +17,5 @@ ob_lc = lineData[4]                 # Observation Location Class
 obs_lat = lineData[6]               # Observation Latitude
 obs_lon = lineData[7] 
 print (f"Record {record_id} indicates Sara was seen at lat:{obs_lat}, lon:{obs_lon}W on {obs_date}")
+
+s
