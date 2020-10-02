@@ -18,4 +18,5 @@ obs_lat = lineData[6]               # Observation Latitude
 obs_lon = lineData[7] 
 print (f"Record {record_id} indicates Sara was seen at lat:{obs_lat}, lon:{obs_lon}W on {obs_date}")
 
-ss
+fileObj = open('data/raw/Sara.txt','r')
+print(fileObj.readline())
