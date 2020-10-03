@@ -4,7 +4,7 @@
 #-----------------------------------------------------------------------
 #lineString = "20616	29051	7/3/2003 9:13	3	66	33.898	-77.958	27.369	-46.309	6	0	-126	529	3	401 651134.7	0"
 #------------------------------------------------------------------------
-user_date = input("Enter data to search for Sara: ")
+user_date = input("Enter data to search for Sara[M/D/YYYY]: ")
 
 
 file_object= open("./data/raw/Sara.txt", "r")
@@ -41,6 +41,8 @@ for lineString in line_list:
         #print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
         date_dict[record_id] = obs_date
         coord_dict[record_id] = (obs_lat,obs_lon)
+        
+
 
 matching_keys= []
 #loop through items in the dat_dict, and collect keys for matching ones
@@ -49,6 +51,10 @@ for date_item in date_dict.items():
     if the_date == user_date:
         matching_keys.append(the_key)
         
+if len(matching_keys) == 0 :
+    print (f"no observation on {user_date}")
+    
+        
 for matching_key in matching_keys:
     obs_lat,obs_lon = coord_dict[matching_key]
     the_date = date_dict[matching_key]
@@ -56,6 +62,7 @@ for matching_key in matching_keys:
 #Iterate through all lines in the the lineList
     
     
+
 
 
 
