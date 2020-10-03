@@ -6,7 +6,6 @@
 #------------------------------------------------------------------------
 user_date = input("Enter data to search for Sara[M/D/YYYY]: ")
 
-
 file_object= open("./data/raw/Sara.txt", "r")
 
  #Read contents of file into a list
@@ -19,55 +18,45 @@ file_object.close()
 date_dict = {}
 coord_dict = {}
 
-
-
-#Print the location of sara
-
+#Iterate through all lines in the the lineList
 for lineString in line_list:
     if lineString[0] in ("#","u"): continue
 
     #Split the string into a list of data items
     lineData = lineString.split()
-
+    
     #Extract items in list into variables
     record_id = lineData[0]
     obs_date = lineData[2]
     obs_lc = lineData[4]
+    #if obs_lc not in ("1","2","3"):
+    #    continue
     obs_lat = lineData[6]
     obs_lon = lineData[7]
-
-    #Print the location of sara
+    
+    #Print the location of sara if lc is 1, 2, or 3
     if obs_lc in ("1","2","3"):
         #print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
         date_dict[record_id] = obs_date
         coord_dict[record_id] = (obs_lat,obs_lon)
-        
 
+#Create empty list to hold matching keys
+matching_keys = []
 
-matching_keys= []
-#loop through items in the dat_dict, and collect keys for matching ones
+#Loop through items in the the date_dict, and collect keys for matching ones
 for date_item in date_dict.items():
+    #Get the key and date of the dictionary item
     the_key, the_date = date_item
-    if the_date == user_date:
+    #See if the date matches the user date
+    if the_date == user_date: 
+        #If so, add the key to the list
         matching_keys.append(the_key)
         
-if len(matching_keys) == 0 :
-    print (f"no observation on {user_date}")
-    
-        
+#If no records found, tell the user
+if len(matching_keys) == 0:
+    print(f"No observations on {user_date}; is your date format valid?")        
+
+#Reveal locations for each key in matching_keys
 for matching_key in matching_keys:
-    obs_lat,obs_lon = coord_dict[matching_key]
-    the_date = date_dict[matching_key]
-    print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
-#Iterate through all lines in the the lineList
-    
-    
-
-
-
-
-
-
-
-
-
+    obs_lat, obs_lon = coord_dict[matching_key]
+    print(f"Record {matching_key} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {user_date}")
