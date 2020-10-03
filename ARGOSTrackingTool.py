@@ -4,6 +4,8 @@
 #-----------------------------------------------------------------------
 #lineString = "20616	29051	7/3/2003 9:13	3	66	33.898	-77.958	27.369	-46.309	6	0	-126	529	3	401 651134.7	0"
 #------------------------------------------------------------------------
+user_date = input("Enter data to search for Sara: ")
+
 
 file_object= open("./data/raw/Sara.txt", "r")
 
@@ -20,8 +22,7 @@ coord_dict = {}
 
 
 #Print the location of sara
-#print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
-#Iterate through all lines in the the lineList
+
 for lineString in line_list:
     if lineString[0] in ("#","u"): continue
 
@@ -36,11 +37,25 @@ for lineString in line_list:
     obs_lon = lineData[7]
 
     #Print the location of sara
+    if obs_lc in ("1","2","3"):
+        #print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+        date_dict[record_id] = obs_date
+        coord_dict[record_id] = (obs_lat,obs_lon)
+
+matching_keys= []
+#loop through items in the dat_dict, and collect keys for matching ones
+for date_item in date_dict.items():
+    the_key, the_date = date_item
+    if the_date == user_date:
+        matching_keys.append(the_key)
+        
+for matching_key in matching_keys:
+    obs_lat,obs_lon = coord_dict[matching_key]
+    the_date = date_dict[matching_key]
     print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
-    date_dict[record_id] = obs_date
-    coord_dict[record_id] = (obs_lat,obs_lon)
-
-
+#Iterate through all lines in the the lineList
+    
+    
 
 
 
